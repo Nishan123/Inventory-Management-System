@@ -12,6 +12,23 @@ def createAccount():
           root.destroy()
           import signup_screen
 
+# for hint text on username and password text field
+def PhoneOnEnter(e):
+          phone.delete(0,"end")
+          
+def PhoneOnLeave(e):
+          phoneData=phone.get()
+          if phoneData == "":
+                    phone.insert(0,"Phone Number")
+                    
+def PassOnEnter(e):
+          password.delete(0,"end")
+          
+def PassOnLeave(e):
+          passwordData=password.get()
+          if passwordData == "":
+                    password.insert(0,"Password")
+
 # Custom text styles
 customButtonFont = font.Font(size=16, weight="bold")
 customTitleFont = font.Font(size=20, weight="bold")
@@ -41,9 +58,15 @@ h1.place(x=140, y=230)
 
 # for text fields
 phone = Entry(container,width=27,font=(10))
+phone.insert(0,"Phone Number")
+phone.bind("<FocusIn>",PhoneOnEnter)
+phone.bind("<FocusOut>",PhoneOnLeave)
 phone.place(x=90,y=320,height=38)
 
 password = Entry(container,width=27,font=(10))
+password.insert(0,"Password")
+password.bind("<FocusIn>",PassOnEnter)
+password.bind("<FocusOut>",PassOnLeave)
 password.place(x=90,y=370,height=38)
 
 
