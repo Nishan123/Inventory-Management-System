@@ -8,13 +8,17 @@ root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
+def createAccount():
+          root.destroy()
+          import signup_screen
+
 # Custom text styles
 customButtonFont = font.Font(size=16, weight="bold")
 customTitleFont = font.Font(size=20, weight="bold")
 
 # for hero text
 Label(root, text="Stock Panda", bg="#8A908B", font=("Arial", 30, "bold"),fg="white").place(x=30, y=290)
-Label(root, text="Some Description about the software", bg="#8A908B", font=("Arial", 20, "bold"),fg="white").place(x=30, y=340)
+Label(root, text="Some Description about the software", bg="#8A908B", font=("Arial", 20),fg="white").place(x=30, y=340)
 
 
 # to display text logo
@@ -52,7 +56,7 @@ forgotPass = Button(container,text="Forgot password?",border=0,fg="blue",bg="#D9
 forgotPass.place(x=290,y=415)
 
 # create new account button
-signUp = Button(container,text="Create an account",border=0,fg="blue",bg="#D9D9D9",font=1)
+signUp = Button(container,text="Create an account",border=0,fg="blue",bg="#D9D9D9",font=1,command=createAccount)
 signUp.place(x=160,y=650)
 
 
