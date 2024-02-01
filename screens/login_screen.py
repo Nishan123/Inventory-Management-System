@@ -9,6 +9,11 @@ root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
 
+
+    
+    
+
+
 def createAccount():
     root.destroy()
     import signup_screen
