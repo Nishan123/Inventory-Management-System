@@ -152,4 +152,40 @@ account_btn = Button(container, text="Account", image=userImg, compound="left", 
 account_btn.image = userImg
 account_btn.pack(pady=(10, 0))
 
+# for avialbel stocks label
+Label(root,text="Availabe Stocks",font=("Arial",18,"bold"),bg="#8A908B").place(x=320,y=95)
+
+# for toal purchase, sales and stocks value
+valueContainer= Frame(root)
+valueContainer.place(x=874,y=100)
+
+stocksValue = Label(valueContainer,text="Stocks:XXX")
+stocksValue.grid(row=0,column=0)
+
+purchaseValue = Label(valueContainer,text="Purchase:XXX")
+purchaseValue.grid(row=0,column=1)
+
+saleValue = Label(valueContainer,text="Sales:XXX")
+saleValue.grid(row=0,column=2)
+
+# frame to store list of avaialble stocks
+stocks_frame=Frame(root,height=520,width=765,bg="#D9D9D9")
+stocks_frame.pack_propagate(False)
+stocks_frame.pack(padx=(6,0),pady=(70,0))
+
+# frame to store labels
+stocks_frame_labels=Frame(stocks_frame,height=520,width=760,bg="#D9D9D9")
+stocks_frame_labels.place(x=50,y=10)
+
+# labels inside stocks container
+id_label = Label(stocks_frame_labels,text="ID",font=("Arial",13,"bold",),bg="#D9D9D9").grid(row=0,column=0,padx=(0,70))
+productName_label = Label(stocks_frame_labels,text="Product Name",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=1,padx=(0,170))
+qty_label=Label(stocks_frame_labels,text="Qty",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=2,padx=(0,80))
+cp_label=Label(stocks_frame_labels,text="CP",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=3,padx=(0,60))
+total_label=Label(stocks_frame_labels,text="Total",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=4,padx=(0,0))
+
+
+
+
+
 root.mainloop()
