@@ -8,6 +8,8 @@ root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
+
+
 # creating a icon path
 icon_path = "assets/stockpanda1.ico"
 
@@ -51,7 +53,7 @@ def PhoneOnEnter(e):
 def PhoneOnLeave(e):
     phoneData = phone.get()
     if phoneData == "":
-        phone.insert(0, "Phone Number")
+        phone.insert(0, "  Phone Number")
 
 
 def PassOnEnter(e):
@@ -61,7 +63,7 @@ def PassOnEnter(e):
 def PassOnLeave(e):
     passwordData = password.get()
     if passwordData == "":
-        password.insert(0, "Password")
+        password.insert(0, "  Password")
 
 
 def ConfPassOnEnter(e):
@@ -71,7 +73,7 @@ def ConfPassOnEnter(e):
 def ConfPassOnLeave(e):
     confPasswordData = confirmPassword.get()
     if confPasswordData == "":
-        confirmPassword.insert(0, "Confirm Password")
+        confirmPassword.insert(0, "  Confirm Password")
 
 
 # Custom text styles
@@ -104,20 +106,20 @@ h1 = Label(container, text="Create an Account",
 h1.place(x=120, y=230)
 
 # for text fields
-phone = Entry(container, width=27, font=(10))
-phone.insert(0, "Phone Number")
+phone = Entry(container, width=33, font=(10))
+phone.insert(0, "  Phone Number")
 phone.bind("<FocusIn>", PhoneOnEnter)
 phone.bind("<FocusOut>", PhoneOnLeave)
 phone.place(x=90, y=300, height=38)
 
-password = Entry(container, width=27, font=(10))
-password.insert(0, "Password")
+password = Entry(container, width=33, font=(10))
+password.insert(0, "  Password")
 password.bind("<FocusIn>", PassOnEnter)
 password.bind("<FocusOut>", PassOnLeave)
 password.place(x=90, y=350, height=38)
 
-confirmPassword = Entry(container, width=27, font=(10))
-confirmPassword.insert(0, "Confirm Password")
+confirmPassword = Entry(container, width=33, font=(10))
+confirmPassword.insert(0, "  Confirm Password")
 confirmPassword.bind("<FocusIn>", ConfPassOnEnter)
 confirmPassword.bind("<FocusOut>", ConfPassOnLeave)
 confirmPassword.place(x=90, y=400, height=38)

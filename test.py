@@ -20,11 +20,11 @@ def whenPurchaseItem():
     product_name_field=Entry(purchase,width=40)
     product_name_field.place(x=60,y=120,height=30)
     
-    quantity_var = StringVar(value='0')  # Set initial value to '0'
+    quantity_var = StringVar(value='')  # Set initial value to '0'
     quantity_field=Entry(purchase,width=15, textvariable=quantity_var)
     quantity_field.place(x=320,y=120,height=30)
     
-    costprice_var = StringVar(value='0')  # Set initial value to '0'
+    costprice_var = StringVar(value='')  # Set initial value to '0'
     costprice_field=Entry(purchase,width=18, textvariable=costprice_var)
     costprice_field.place(x=430,y=120,height=30)
     

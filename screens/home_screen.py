@@ -122,6 +122,7 @@ shoppingImg = PhotoImage(file="assets/shopping-cart.png")
 dollarImg = PhotoImage(file="assets/dollar-sign.png")
 userImg = PhotoImage(file="assets/user.png")
 searchImg = PhotoImage(file="assets/search.png")
+deleteImg = PhotoImage(file="assets/delete_icon.png")
 
 # Custom text styles
 customButtonFont = font.Font(size=16, weight="bold")
@@ -148,11 +149,11 @@ logoDispaly = Label(appBar, image=textlogo, bg="#7F7F7F")
 logoDispaly.place(x=30, y=10)
 
 # search bar 
-search_bar = Entry(appBar, width=22, font=7)
+search_bar = Entry(appBar, width=25, font=7)
 search_bar.insert(0, "Search")
 search_bar.bind("<FocusIn>", onEnter)
 search_bar.bind("<FocusOut>", onLeave)
-search_bar.place(x=480, y=15, height=30)
+search_bar.place(x=487, y=15, height=30)
 
 search_btn = Button(appBar, image=searchImg, bg="#FF5252", )
 search_btn.image = searchImg
@@ -205,12 +206,37 @@ stocks_frame_labels=Frame(stocks_frame,height=520,width=760,bg="#D9D9D9")
 stocks_frame_labels.place(x=50,y=10)
 
 # labels inside stocks container
-id_label = Label(stocks_frame_labels,text="ID",font=("Arial",13,"bold",),bg="#D9D9D9").grid(row=0,column=0,padx=(0,70))
-productName_label = Label(stocks_frame_labels,text="Product Name",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=1,padx=(0,170))
-qty_label=Label(stocks_frame_labels,text="Qty",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=2,padx=(0,80))
-cp_label=Label(stocks_frame_labels,text="CP",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=3,padx=(0,60))
+id_label = Label(stocks_frame_labels,text="ID",font=("Arial",13,"bold",),bg="#D9D9D9").grid(row=0,column=0,padx=(0,52))
+productName_label = Label(stocks_frame_labels,text="Product Name",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=1,padx=(0,168))
+qty_label=Label(stocks_frame_labels,text="Qty",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=2,padx=(0,70))
+cp_label=Label(stocks_frame_labels,text="CP",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=3,padx=(0,76))
 total_label=Label(stocks_frame_labels,text="Total",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=4,padx=(0,0))
 
+
+# stock items list tile frame
+itemFrame= Frame(stocks_frame,bg="red",height=34,width=750)
+itemFrame.pack_propagate(False)
+itemFrame.pack(pady=35)
+
+
+delete_btn = Button(itemFrame, image=deleteImg )
+delete_btn.image = deleteImg
+delete_btn.place(x=2,y=2,)
+
+item_id_field = Entry(itemFrame,width=7,font=10)
+item_id_field.place(x=44,y=2,height=30)
+
+item_name_field = Entry(itemFrame,width=30,font=10)
+item_name_field.place(x=120,y=2,height=30)
+
+item_qty_field = Entry(itemFrame,width=10,font=10)
+item_qty_field.place(x=405,y=2,height=30)
+
+item_cp_field = Entry(itemFrame,width=10,font=10)
+item_cp_field.place(x=510,y=2,height=30)
+
+item_total_field = Entry(itemFrame,width=14,font=10)
+item_total_field.place(x=615,y=2,height=30)
 
 
 
