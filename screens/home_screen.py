@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import font
+from tkinter import Tk, Label, Entry, Button, StringVar
 
 root = Tk()
 root.title("Stock Panda")
@@ -7,6 +8,10 @@ root.config(bg="#8A908B")
 root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
+
+# Make quantity_var and costprice_var global variables
+quantity_var = StringVar(value='0')  # Set initial value to '0'
+costprice_var = StringVar(value='0')  # Set initial value to '0'
 
 def whenPurchaseItem():
     purchase=Tk()
@@ -28,18 +33,33 @@ def whenPurchaseItem():
     product_name_field=Entry(purchase,width=40)
     product_name_field.place(x=60,y=120,height=30)
     
-    quantity_field=Entry(purchase,width=15)
+    quantity_var = StringVar(value='0')  # Set initial value to '0'
+    quantity_field=Entry(purchase,width=15, textvariable=quantity_var)
     quantity_field.place(x=320,y=120,height=30)
     
-    costprice_field=Entry(purchase,width=18)
+    costprice_var = StringVar(value='0')  # Set initial value to '0'
+    costprice_field=Entry(purchase,width=18, textvariable=costprice_var)
     costprice_field.place(x=430,y=120,height=30)
-    
     
     # for confirm button
     confirm_button=Button(purchase, text="Confirm Purchase", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"))
     confirm_button.place(x=210,y=230)
     
-    
+    # for total label
+    total_purchase = Label(purchase,font=("Arial",16),bg="#545454",fg="white")
+    total_purchase.place(x=450,y=234)
+
+    def calculate_total(*args):
+        try:
+            totalPurchaseAmt = int(costprice_var.get()) * int(quantity_var.get())
+            total_purchase.config(text=f"Total: {totalPurchaseAmt}")
+        except ValueError:
+            total_purchase.config(text="Invalid input")
+
+    quantity_var.trace_add("write", calculate_total)
+    costprice_var.trace_add("write", calculate_total)
+    purchase.mainloop()
+
 def whenSaleItem():
     sale=Tk()
     sale.config(bg="#545454")
@@ -77,6 +97,13 @@ def whenSaleItem():
     # for confirm button
     confirm_button=Button(sale, text="Confirm Sale", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"))
     confirm_button.place(x=210,y=230)
+    
+    # variable to calculate total price
+    totalSalesAmt= "XXX"
+    
+    # for total label
+    total_purchase = Label(sale,text=f"Total:{totalSalesAmt}",font=("Arial",16),bg="#545454",fg="white")
+    total_purchase.place(x=450,y=234)
     
     
     
