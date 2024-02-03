@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import font
+import os
 
 root = Tk()
 root.title("Stock Panda")
@@ -8,11 +9,11 @@ root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
-# creating a icon path
-icon_path = "assets/stockpanda1.ico"
+# # creating a icon path
+# icon_path = os.path.abspath("assets/stockpanda1.ico")
 
-# using iconpath
-root.iconbitmap(icon_path)
+# # using iconpath
+# root.iconbitmap(default=icon_path)
 
 
 def createAccount():
@@ -84,13 +85,13 @@ h1 = Label(container, text="Welcome Back", bg="#D9D9D9", font=customTitleFont)
 h1.place(x=140, y=230)
 
 # for text fields
-phone = Entry(container, width=33, font=(10))
+phone = Entry(container, width=27, font=(10))
 phone.insert(0, "  Phone Number")
 phone.bind("<FocusIn>", PhoneOnEnter)
 phone.bind("<FocusOut>", PhoneOnLeave)
 phone.place(x=90, y=320, height=38)
 
-password = Entry(container, width=33, font=(10))
+password = Entry(container, width=27, font=(10))
 password.insert(0, "  Password")
 password.bind("<FocusIn>", PassOnEnter)
 password.bind("<FocusOut>", PassOnLeave)

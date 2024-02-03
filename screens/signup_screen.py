@@ -10,11 +10,11 @@ root.minsize(height=700, width=1100)
 
 
 
-# creating a icon path
-icon_path = "assets/stockpanda1.ico"
+# # creating a icon path
+# icon_path = "assets/stockpanda1.ico"
 
-# using iconpath
-root.iconbitmap(icon_path)
+# # using iconpath
+# root.iconbitmap(icon_path)
 
 
 # icon_image path
@@ -106,19 +106,19 @@ h1 = Label(container, text="Create an Account",
 h1.place(x=120, y=230)
 
 # for text fields
-phone = Entry(container, width=33, font=(10))
+phone = Entry(container, width=27, font=(10))
 phone.insert(0, "  Phone Number")
 phone.bind("<FocusIn>", PhoneOnEnter)
 phone.bind("<FocusOut>", PhoneOnLeave)
 phone.place(x=90, y=300, height=38)
 
-password = Entry(container, width=33, font=(10))
+password = Entry(container, width=27, font=(10))
 password.insert(0, "  Password")
 password.bind("<FocusIn>", PassOnEnter)
 password.bind("<FocusOut>", PassOnLeave)
 password.place(x=90, y=350, height=38)
 
-confirmPassword = Entry(container, width=33, font=(10))
+confirmPassword = Entry(container, width=27, font=(10))
 confirmPassword.insert(0, "  Confirm Password")
 confirmPassword.bind("<FocusIn>", ConfPassOnEnter)
 confirmPassword.bind("<FocusOut>", ConfPassOnLeave)

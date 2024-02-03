@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import font
-from tkinter import Tk, Label, Entry, Button, StringVar
 
 root = Tk()
 root.title("Stock Panda")
@@ -9,105 +8,11 @@ root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
-# Make quantity_var and costprice_var global variables
-quantity_var = StringVar(value='0')  # Set initial value to '0'
-costprice_var = StringVar(value='0')  # Set initial value to '0'
-
 def whenPurchaseItem():
-    purchase=Tk()
-    purchase.config(bg="#545454")
-    purchase.title("Purchase Item")
-    purchase.geometry("600x300")
-    purchase.minsize(height=300,width=600)
-    purchase.maxsize(height=300,width=600)
-    
-    # Purchase Label title
-    title=Label(purchase,text="Purchase Item",font=("Arial",23),bg="#545454",fg="white").pack(pady=(15,0))
-    
-    # for text field labels
-    product_name_label=Label(purchase,text="Product Name",bg="#545454",fg="white",font=("Arial",10)).place(x=70,y=95)
-    quantity_label = Label(purchase,text="Quantity",bg="#545454",fg="white",font=("Arial",10)).place(x=320,y=95)
-    costprice_label = Label(purchase,text="Cost Price",bg="#545454",fg="white",font=("Arial",10)).place(x=427,y=95)
-    
-    # for text fields
-    product_name_field=Entry(purchase,width=40)
-    product_name_field.place(x=60,y=120,height=30)
-    
-    quantity_var = StringVar(value='0')  # Set initial value to '0'
-    quantity_field=Entry(purchase,width=15, textvariable=quantity_var)
-    quantity_field.place(x=320,y=120,height=30)
-    
-    costprice_var = StringVar(value='0')  # Set initial value to '0'
-    costprice_field=Entry(purchase,width=18, textvariable=costprice_var)
-    costprice_field.place(x=430,y=120,height=30)
-    
-    # for confirm button
-    confirm_button=Button(purchase, text="Confirm Purchase", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"))
-    confirm_button.place(x=210,y=230)
-    
-    # for total label
-    total_purchase = Label(purchase,font=("Arial",16),bg="#545454",fg="white")
-    total_purchase.place(x=450,y=234)
-
-    def calculate_total(*args):
-        try:
-            totalPurchaseAmt = int(costprice_var.get()) * int(quantity_var.get())
-            total_purchase.config(text=f"Total: {totalPurchaseAmt}")
-        except ValueError:
-            total_purchase.config(text="Invalid input")
-
-    quantity_var.trace_add("write", calculate_total)
-    costprice_var.trace_add("write", calculate_total)
-    purchase.mainloop()
+    import purchase_window
 
 def whenSaleItem():
-    sale=Tk()
-    sale.config(bg="#545454")
-    sale.title("Sale Item")
-    sale.geometry("600x300")
-    sale.minsize(height=300,width=600)
-    sale.maxsize(height=300,width=600)
-    
-    # Purchase Label title
-    title=Label(sale,text="Sale Item",font=("Arial",23),bg="#545454",fg="white").place(x=50,y=20)
-    
-    # for search bar     
-    sale_search_bar = Entry(sale, width=22, font=7)
-    sale_search_bar.insert(0,"Search")
-    sale_search_bar.bind("<FocusOut>", onLeave)
-    sale_search_bar.bind("<FocusIn>", onEnter)
-    sale_search_bar.place(x=300, y=20, height=30)
-    
-    # for text field labels
-    id_label=Label(sale,text="ID",bg="#545454",fg="white",font=("Arial",10)).place(x=60,y=95)
-    product_name_label = Label(sale,text="Product Name",bg="#545454",fg="white",font=("Arial",10)).place(x=170,y=95)
-    quantity_label = Label(sale,text="Quantity",bg="#545454",fg="white",font=("Arial",10)).place(x=427,y=95)
-    
-    # for text fields
-    id_field=Entry(sale,width=15)
-    id_field.place(x=60,y=120,height=30)
-    
-    product_name_field=Entry(sale,width=40)
-    product_name_field.place(x=170,y=120,height=30)
-    
-    quantity_field=Entry(sale,width=18)
-    quantity_field.place(x=430,y=120,height=30)
-    
-    
-    # for confirm button
-    confirm_button=Button(sale, text="Confirm Sale", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"))
-    confirm_button.place(x=210,y=230)
-    
-    # variable to calculate total price
-    totalSalesAmt= "XXX"
-    
-    # for total label
-    total_purchase = Label(sale,text=f"Total:{totalSalesAmt}",font=("Arial",16),bg="#545454",fg="white")
-    total_purchase.place(x=450,y=234)
-    
-    
-    
-    
+    import sales_window
 def onEnter(e):
     search_bar.delete(0, "end")
 
@@ -180,7 +85,7 @@ account_btn = Button(container, text="Account", image=userImg, compound="left", 
 account_btn.image = userImg
 account_btn.pack(pady=(10, 0))
 
-# for avialbel stocks label
+# for avialable stocks label
 Label(root,text="Availabe Stocks",font=("Arial",18,"bold"),bg="#8A908B").place(x=320,y=95)
 
 # for toal purchase, sales and stocks value
@@ -213,30 +118,34 @@ cp_label=Label(stocks_frame_labels,text="CP",font=("Arial",13,"bold"),bg="#D9D9D
 total_label=Label(stocks_frame_labels,text="Total",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=4,padx=(0,0))
 
 
-# stock items list tile frame
-itemFrame= Frame(stocks_frame,bg="red",height=34,width=750)
-itemFrame.pack_propagate(False)
-itemFrame.pack(pady=35)
+# for scroll frame
+scroll_frame=Frame(stocks_frame,bg="pink",height=480,width=765)
+scroll_frame.pack_propagate(False)
+scroll_frame.pack(side=BOTTOM)
 
+# stock items list tile frame
+itemFrame= Frame(scroll_frame,bg="red",height=34,width=750)
+itemFrame.pack_propagate(False)
+itemFrame.pack(pady=10)
 
 delete_btn = Button(itemFrame, image=deleteImg )
 delete_btn.image = deleteImg
 delete_btn.place(x=2,y=2,)
 
-item_id_field = Entry(itemFrame,width=7,font=10)
-item_id_field.place(x=44,y=2,height=30)
+item_id_field = Entry(itemFrame,width=6,font=10)
+item_id_field.place(x=40,y=2,height=30)
 
-item_name_field = Entry(itemFrame,width=30,font=10)
-item_name_field.place(x=120,y=2,height=30)
+item_name_field = Entry(itemFrame,width=25,font=10)
+item_name_field.place(x=118,y=2,height=30)
 
-item_qty_field = Entry(itemFrame,width=10,font=10)
-item_qty_field.place(x=405,y=2,height=30)
+item_qty_field = Entry(itemFrame,width=9,font=10)
+item_qty_field.place(x=402,y=2,height=30)
 
-item_cp_field = Entry(itemFrame,width=10,font=10)
+item_cp_field = Entry(itemFrame,width=9,font=10)
 item_cp_field.place(x=510,y=2,height=30)
 
-item_total_field = Entry(itemFrame,width=14,font=10)
-item_total_field.place(x=615,y=2,height=30)
+item_total_field = Entry(itemFrame,width=11,font=10)
+item_total_field.place(x=620,y=2,height=30)
 
 
 
