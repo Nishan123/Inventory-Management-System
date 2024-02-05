@@ -54,7 +54,7 @@ logoDispaly = Label(appBar, image=textlogo, bg="#7F7F7F")
 logoDispaly.place(x=30, y=10)
 
 # search bar 
-search_bar = Entry(appBar, width=25, font=7)
+search_bar = Entry(appBar, width=22, font=7)
 search_bar.insert(0, "Search")
 search_bar.bind("<FocusIn>", onEnter)
 search_bar.bind("<FocusOut>", onLeave)
@@ -130,16 +130,16 @@ itemFrame.pack(pady=10)
 
 delete_btn = Button(itemFrame, image=deleteImg )
 delete_btn.image = deleteImg
-delete_btn.place(x=2,y=2,)
+delete_btn.place(x=1,y=2,)
 
 item_id_field = Entry(itemFrame,width=6,font=10)
-item_id_field.place(x=40,y=2,height=30)
+item_id_field.place(x=39,y=2,height=30)
 
 item_name_field = Entry(itemFrame,width=25,font=10)
-item_name_field.place(x=118,y=2,height=30)
+item_name_field.place(x=116,y=2,height=30)
 
 item_qty_field = Entry(itemFrame,width=9,font=10)
-item_qty_field.place(x=402,y=2,height=30)
+item_qty_field.place(x=401,y=2,height=30)
 
 item_cp_field = Entry(itemFrame,width=9,font=10)
 item_cp_field.place(x=510,y=2,height=30)

@@ -11,10 +11,10 @@ root.minsize(height=700, width=1100)
 
 
 # # creating a icon path
-# icon_path = "assets/stockpanda1.ico"
+icon_path = "assets/stockpanda1.ico"
 
 # # using iconpath
-# root.iconbitmap(icon_path)
+root.iconbitmap(icon_path)
 
 
 # icon_image path
@@ -106,36 +106,36 @@ h1 = Label(container, text="Create an Account",
 h1.place(x=120, y=230)
 
 # for text fields
-phone = Entry(container, width=27, font=(10))
+phone = Entry(container, width=27, font=(9))
 phone.insert(0, "  Phone Number")
 phone.bind("<FocusIn>", PhoneOnEnter)
 phone.bind("<FocusOut>", PhoneOnLeave)
 phone.place(x=90, y=300, height=38)
 
-password = Entry(container, width=27, font=(10))
+password = Entry(container, width=27, font=(9))
 password.insert(0, "  Password")
 password.bind("<FocusIn>", PassOnEnter)
 password.bind("<FocusOut>", PassOnLeave)
 password.place(x=90, y=350, height=38)
 
-confirmPassword = Entry(container, width=27, font=(10))
+confirmPassword = Entry(container, width=27, font=(9))
 confirmPassword.insert(0, "  Confirm Password")
 confirmPassword.bind("<FocusIn>", ConfPassOnEnter)
 confirmPassword.bind("<FocusOut>", ConfPassOnLeave)
 confirmPassword.place(x=90, y=400, height=38)
 
 # icon label_call
-icon_label_call = Label(root, image=callImg, cursor='hand2')
+icon_label_call = Label(root, image=callImg, cursor='hand2',bg="white")
 icon_label_call.place(in_=phone, relx=1.0, rely=0.0, anchor='ne')
 
 # icon label eye and eyeslash for password
-eye_label = Label(root, image=eyeImg, cursor='hand2')
+eye_label = Label(root, image=eyeImg, cursor='hand2',bg="white")
 eye_label.place(in_=password, relx=1.0, rely=0.0, anchor='ne')
 eye_label.bind("<Button-1>", lambda event: password_visibility())
 
 
 # # icon label eye and eyeslash for confirm password
-eye_label_2 = Label(root, image=eyeImg, cursor='hand2')
+eye_label_2 = Label(root, image=eyeImg, cursor='hand2',bg="white")
 eye_label_2.place(in_=confirmPassword, relx=1.0, rely=0.0, anchor='ne')
 eye_label_2.bind("<Button-1>", lambda event: confirm_password_visibility())
 

@@ -10,10 +10,10 @@ root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
 # # creating a icon path
-# icon_path = os.path.abspath("assets/stockpanda1.ico")
+icon_path = os.path.abspath("assets/stockpanda1.ico")
 
 # # using iconpath
-# root.iconbitmap(default=icon_path)
+root.iconbitmap(default=icon_path)
 
 
 def createAccount():
@@ -103,15 +103,15 @@ eyeImg = PhotoImage(file='assets/eye_view_icon.png')
 eyeSlashImg = PhotoImage(file='assets/eye_slash_icon.png')
 
 # icon label_call
-icon_label_call = Label(root, image=callImg, cursor='hand2')
+icon_label_call = Label(root, image=callImg, cursor='hand2',bg="white")
 icon_label_call.place(in_=phone, relx=1.0, rely=0.0, anchor='ne')
 
 # icon label_eye and eyeslash
-eye_label = Label(root, image=eyeImg, cursor='hand2')
+eye_label = Label(root, image=eyeImg, cursor='hand2',bg="white")
 eye_label.place(in_=password, relx=1.0, rely=0.0, anchor='ne')
 eye_label.bind("<Button-1>", lambda event: password_visibility())
 # for login button
-login = Button(container, text="Log in", height=1, width=22,
+login = Button(container, text="Sign Up", height=1, width=22,
                border=0, bg="#FF5252", fg="white", font=customButtonFont)
 login.place(x=96, y=540)
 
