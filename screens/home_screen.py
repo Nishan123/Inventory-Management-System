@@ -1,5 +1,7 @@
+
 from tkinter import *
 from tkinter import font
+import purchase_window
 
 root = Tk()
 root.title("Stock Panda")
@@ -9,7 +11,7 @@ root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
 def whenPurchaseItem():
-    import purchase_window
+    purchase_window.create_purchase_window(root)
 
 def whenSaleItem():
     import sales_window
@@ -146,8 +148,6 @@ item_cp_field.place(x=510,y=2,height=30)
 
 item_total_field = Entry(itemFrame,width=11,font=10)
 item_total_field.place(x=620,y=2,height=30)
-
-
 
 
 root.mainloop()
