@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import font
 import os
+import sqlite3
 
 root = Tk()
 root.title("Stock Panda")
@@ -106,5 +107,8 @@ stocks_frame.pack(padx=(6,0),pady=(30,0))
 # frame to display profile details
 profile_card = Frame(stocks_frame, height=560,width=330,bg="red")
 profile_card.pack(side=RIGHT,padx=10)
+
+# to display profile image
+
 
 root.mainloop()

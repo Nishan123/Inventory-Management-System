@@ -12,6 +12,10 @@ root.minsize(height=700, width=1100)
 
 def whenPurchaseItem():
     purchase_window.create_purchase_window(root)
+    
+def whenAccountPressed():
+    root.destroy()
+    import profile_screen
 
 def whenSaleItem():
     import sales_window
@@ -83,7 +87,7 @@ saleBtn.image = shoppingImg
 saleBtn.pack(pady=(10, 0))
 
 account_btn = Button(container, text="Account", image=userImg, compound="left", height=35, width=260, bg="#FF5252",
-                     fg="white", border=0, font=customButtonFont, )
+                     fg="white", border=0, font=customButtonFont,command=whenAccountPressed )
 account_btn.image = userImg
 account_btn.pack(pady=(10, 0))
 

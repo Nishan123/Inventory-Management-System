@@ -1,7 +1,10 @@
 from tkinter import *
 from tkinter import font
+from tkinter import messagebox
+import sqlite3
 
 root = Tk()
+
 root.title("Stock Panda")
 root.config(bg="#8A908B")
 root.geometry("1100x700")
@@ -9,6 +12,35 @@ root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
 
+conn = sqlite3.connect("inv.db")
+c = conn.cursor()
+c.execute("""CREATE TABLE IF NOT EXISTS userProfile(
+          
+          ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          
+          user_phone    INT, 
+          passwd        TEXT,
+          conf_passwd   TEXT
+          
+          )""")
+conn.commit()
+conn.close()
+
+def signup():
+    conn = sqlite3.connect("inv.db")
+    c = conn.cursor()
+    if password.get()==confirmPassword.get():
+        c.execute("INSERT INTO userProfile(user_phone, passwd, conf_passwd)VALUES(?, ?, ?)",(phone.get(),password.get(),confirmPassword.get()))
+        conn.commit()
+        conn.close()
+    else:
+        messagebox.showerror(title="Login Status", message= "Must enter same password on both fields")
+        
+    
+    
+   
+    
+    print(phone.get(), password.get(), confirmPassword.get())
 
 # # creating a icon path
 icon_path = "assets/stockpanda1.ico"
@@ -141,13 +173,13 @@ eye_label_2.bind("<Button-1>", lambda event: confirm_password_visibility())
 
 
 # for login button
-login = Button(container, text="Log in", height=1, width=22,
-               border=0, bg="#FF5252", fg="white", font=customButtonFont)
-login.place(x=96, y=520)
+signup_button = Button(container, text="Sign Up", height=1, width=22,
+               border=0, bg="#FF5252", fg="white", font=customButtonFont,command=signup)
+signup_button.place(x=96, y=520)
 
 # already have an account button
-signUp = Button(container, text="Already have an account", border=0, fg="blue", bg="#D9D9D9", font=1,
+login_button = Button(container, text="Already have an account", border=0, fg="blue", bg="#D9D9D9", font=1,
                 command=alreadyHaveAccount)
-signUp.place(x=130, y=650)
+login_button.place(x=130, y=650)
 
 root.mainloop()
