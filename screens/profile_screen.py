@@ -33,9 +33,12 @@ def onLeave(e):
 # creating a icon path
 icon_path = os.path.abspath("assets/stockpanda1.ico")
 
+
 # using iconpath
 root.iconbitmap(default=icon_path)
 
+
+logoutImg = PhotoImage(file="assets/log-out.png")
 homeImg = PhotoImage(file="assets/home.png")
 shoppingImg = PhotoImage(file="assets/shopping-cart.png")
 dollarImg = PhotoImage(file="assets/dollar-sign.png")
@@ -106,9 +109,41 @@ stocks_frame.pack(padx=(6,0),pady=(30,0))
 
 # frame to display profile details
 profile_card = Frame(stocks_frame, height=560,width=330,bg="red")
+profile_card.pack_propagate(False)
 profile_card.pack(side=RIGHT,padx=10)
 
 # to display profile image
+profile_pic_frame = Frame(profile_card, height=150,width=150)
+profile_pic_frame.pack(pady=(10,0))
+
+# to display store name
+store_name = Label(profile_card,text="Store name",font=("Arial",20,"bold"))
+store_name.pack(pady=(20,0))
+
+# to display store address
+store_address = Label(profile_card, text="address, addr")
+store_address.pack()
+
+# frame to display phone number 
+phone_frame = Frame(profile_card)
+phone_frame.pack(pady=(50,0))
+Label(phone_frame,text="Phone:").grid(row=0,column=0)
+store_phone = Label(phone_frame,text="9812345678")
+store_phone.grid(row=0,column=1)
+
+# frame to display gmail 
+gmail_frame = Frame(profile_card)
+gmail_frame.pack(pady=(5,0))
+Label(gmail_frame,text="Gmail:").grid(row=0,column=0)
+store_gmail = Label(gmail_frame,text="example@gmail.com")
+store_gmail.grid(row=0,column=1)
+
+# log out button
+logout_btn = Button(profile_card, text="Log Out", image=logoutImg, compound="left", height=35, width=230, bg="#FF5252",fg="white", border=0, font=customButtonFont)
+logout_btn.image = logoutImg
+logout_btn.pack(pady=(175,0))
+
+
 
 
 root.mainloop()
