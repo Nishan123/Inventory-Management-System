@@ -29,18 +29,21 @@ conn.close()
 def signup():
     conn = sqlite3.connect("inv.db")
     c = conn.cursor()
-    if password.get()==confirmPassword.get():
-        c.execute("INSERT INTO userProfile(user_phone, passwd, conf_passwd)VALUES(?, ?, ?)",(phone.get(),password.get(),confirmPassword.get()))
-        conn.commit()
-        conn.close()
+    if len(phone.get())<10:
+        messagebox.showerror(title="Signup status", message="Phone number be atleast of 10 digit")
+    elif password.get()!=confirmPassword.get():
+        messagebox.showerror(title="Signup status",message="Confirm password must be same")
+       
     else:
-        messagebox.showerror(title="Login Status", message= "Must enter same password on both fields")
+         c.execute("INSERT INTO userProfile(user_phone, passwd, conf_passwd)VALUES(?, ?, ?)",(phone.get(),password.get(),confirmPassword.get()))
+         conn.commit()
+         conn.close()
+         messagebox.showinfo(title="Signup status", message="Account created successful")
+         root.destroy()
+         import login_screen
         
     
-    
-   
-    
-    print(phone.get(), password.get(), confirmPassword.get())
+
 
 # # creating a icon path
 icon_path = "assets/stockpanda1.ico"

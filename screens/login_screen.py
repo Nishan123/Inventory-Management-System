@@ -1,8 +1,12 @@
+import sqlite3
 from tkinter import *
 from tkinter import font
 import os
+from tkinter import messagebox
 
 root = Tk()
+
+
 root.title("Stock Panda")
 root.config(bg="#8A908B")
 root.geometry("1100x700")
@@ -11,6 +15,8 @@ root.minsize(height=700, width=1100)
 
 # # creating a icon path
 icon_path = os.path.abspath("assets/stockpanda1.ico")
+
+conn = sqlite3.connect("inv.db")
 
 # # using iconpath
 root.iconbitmap(default=icon_path)
@@ -49,6 +55,19 @@ def password_visibility():
     else:
         password.config(show="*")
         eye_label.config(image=eyeSlashImg)
+        
+def login():
+    conn = sqlite3.connect("inv.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM userProfile WHERE user_phone = ? AND passwd = ?", (phone.get(), password.get()))
+    result = c.fetchone()
+    conn.close()
+    if result:
+        messagebox.showinfo(title="Login status", message="Login successful")
+        root.destroy()
+        import home_screen
+    else:
+        messagebox.showerror(title="Login status", message="Invalid phone or password")
 
 
 # Custom text styles
@@ -111,9 +130,9 @@ eye_label = Label(root, image=eyeImg, cursor='hand2',bg="white")
 eye_label.place(in_=password, relx=1.0, rely=0.0, anchor='ne')
 eye_label.bind("<Button-1>", lambda event: password_visibility())
 # for login button
-login = Button(container, text="Sign Up", height=1, width=22,
-               border=0, bg="#FF5252", fg="white", font=customButtonFont)
-login.place(x=96, y=540)
+login_button = Button(container, text="Log In", height=1, width=22,
+               border=0, bg="#FF5252", fg="white", font=customButtonFont,command=login)
+login_button.place(x=96, y=540)
 
 # for forgot password button
 forgotPass = Button(container, text="Forgot password?",
