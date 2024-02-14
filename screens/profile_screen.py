@@ -49,13 +49,11 @@ def on_profile_pic_click(event):
         save_image_to_database(file_path)
 
 
-# Function to save image file path to database (Assuming SQLite for demonstration)
+# Function to save image file path to database
 def save_image_to_database(file_path):
     # Connect to the database
     conn = sqlite3.connect('your_database.db')
     cursor = conn.cursor()
-
-    # Execute SQL to update profile image path in the database
     cursor.execute(
         "UPDATE user SET profile_image = ? WHERE user_id = ?", (file_path,))  # create user_id, and user table in database to store these infos.
 
