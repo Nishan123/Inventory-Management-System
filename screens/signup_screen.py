@@ -21,7 +21,6 @@ c.execute("""CREATE TABLE IF NOT EXISTS userProfile(
           user_phone    INT, 
           passwd        TEXT,
           conf_passwd   TEXT
-          
           )""")
 conn.commit()
 conn.close()
@@ -38,9 +37,8 @@ def signup():
          c.execute("INSERT INTO userProfile(user_phone, passwd, conf_passwd)VALUES(?, ?, ?)",(phone.get(),password.get(),confirmPassword.get()))
          conn.commit()
          conn.close()
-         messagebox.showinfo(title="Signup status", message="Account created successful")
          root.destroy()
-         import login_screen
+         import home_screen
         
     
 

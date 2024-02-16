@@ -75,6 +75,9 @@ dollarImg = PhotoImage(file="assets/dollar-sign.png")
 userImg = PhotoImage(file="assets/user.png")
 searchImg = PhotoImage(file="assets/search.png")
 deleteImg = PhotoImage(file="assets/delete_icon.png")
+changeNameImg = PhotoImage(file="assets/change_name.png")
+changePhoneImg = PhotoImage(file="assets/change_phone.png")
+changePasswdImg = PhotoImage(file="assets/change_passwd.png")
 
 # def back_img():
 back_img = PhotoImage(file="assets/zoro.png")
@@ -88,8 +91,6 @@ customTitleFont = font.Font(size=20, weight="bold")
 
 # container in left side
 container = Frame(bg="#D9D9D9", height=700, width=300, )
-background_label = Label(container, image=colorimg2)
-background_label.place(x=0, y=0, relheight=1, relwidth=1)
 container.pack_propagate(False)
 container.pack(side=LEFT)
 
@@ -141,12 +142,12 @@ search_btn.image = searchImg
 search_btn.place(x=740, y=15)
 
 # frame for profile page
-stocks_frame = Frame(root, height=580, width=765, bg="#D9D9D9")
-stocks_frame.pack_propagate(False)
-stocks_frame.pack(padx=(6, 0), pady=(30, 0))
+profile_frame = Frame(root, height=580, width=765, bg="#D9D9D9")
+profile_frame.pack_propagate(False)
+profile_frame.pack(padx=(6, 0), pady=(30, 0))
 
 # frame to display profile details
-profile_card = Frame(stocks_frame, height=560, width=330, bg="white")
+profile_card = Frame(profile_frame, height=560, width=330, bg="white")
 back_label = Label(profile_card, image=colorimg2)
 back_label.place(x=0, y=0, relheight=1, relwidth=1)
 profile_card.pack_propagate(False)
@@ -168,29 +169,38 @@ store_name = Label(profile_card, text="Store name", font=(
     "Arial", 20, "bold"), bg='#d599bc', background='#d599bc')
 store_name.pack(pady=(20, 0))
 
-# to display store address
-store_address = Label(profile_card, text="address, addr", bg='#d599bc',)
-store_address.pack(pady=(3, 0))
-
 # frame to display phone number
 phone_frame = Frame(profile_card)
-phone_frame.pack(pady=(50, 0))
+phone_frame.pack(pady=(10, 0))
 Label(phone_frame, text="Phone:", background='#d599bc').grid(row=0, column=0)
 store_phone = Label(phone_frame, text="9812345678", background='#d599bc')
 store_phone.grid(row=0, column=1)
 
-# frame to display gmail
-gmail_frame = Frame(profile_card)
-gmail_frame.pack(pady=(5, 0))
-Label(gmail_frame, text="Gmail:", background='#d599bc').grid(row=0, column=0)
-store_gmail = Label(gmail_frame, text="example@gmail.com",
-                    background='#d599bc')
-store_gmail.grid(row=0, column=1)
 
 # log out button
 logout_btn = Button(profile_card, text="Log Out", image=logoutImg, compound="left",
                     height=35, width=230, bg="#FF5252", fg="white", border=0, font=customButtonFont)
 logout_btn.image = logoutImg
 logout_btn.pack(pady=(175, 0))
+
+
+
+# change name button
+change_name_btn = Button(profile_frame, text="Change Name", image=changeNameImg, compound="left", height=35, width=260, bg="#D9D9D9",
+                  fg="blue", border=0, font=customButtonFont)
+change_name_btn.image = changeNameImg
+change_name_btn.pack(pady=(200,0))
+
+# change password button
+change_name_btn = Button(profile_frame, text="Change Password", image=changePasswdImg, compound="left", height=35, width=260, bg="#D9D9D9",
+                  fg="blue", border=0, font=customButtonFont)
+change_name_btn.image = changePasswdImg
+change_name_btn.pack()
+
+# change phone button
+change_name_btn = Button(profile_frame, text="Change", image=changePhoneImg, compound="left", height=35, width=260, bg="#D9D9D9",
+                  fg="blue", border=0, font=customButtonFont)
+change_name_btn.image = changePhoneImg
+change_name_btn.pack()
 
 root.mainloop()
