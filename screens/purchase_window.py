@@ -1,4 +1,5 @@
 from tkinter import *
+import sqlite3
 
 def create_purchase_window(root):
     purchase=Toplevel(root)
@@ -7,6 +8,27 @@ def create_purchase_window(root):
     purchase.geometry("600x300")
     purchase.minsize(height=300,width=600)
     purchase.maxsize(height=300,width=600)
+        
+        
+    conn = sqlite3.connect("inv.db")
+    c=conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS inventory(
+          
+          productID INTEGER PRIMARY KEY AUTOINCREMENT,
+          product_name      TEXT,
+          cp                TEXT,
+          qty               TEXT,
+          total             TEXT
+          )""")
+    conn.commit()
+    conn.close()
+    
+    def onConfirmPurchase():
+        conn = sqlite3.connect("inv.db")
+        c=conn.execute("INSERT INTO inventory(product_name, cp, qty, total) VALUES(?,?,?,?)",(product_name_field.get(),costprice_field.get(),quantity_field.get(),totalPurchaseAmt))
+        conn.commit()
+        conn.close()
+    
         
     # Purchase Label title
     title=Label(purchase,text="Purchase Item",font=("Arial",23),bg="#545454",fg="white").pack(pady=(15,0))
@@ -29,7 +51,7 @@ def create_purchase_window(root):
     costprice_field.place(x=430,y=120,height=30)
         
     # for confirm button
-    confirm_button=Button(purchase, text="Confirm Purchase", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"))
+    confirm_button=Button(purchase, text="Confirm Purchase", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"),command=onConfirmPurchase)
     confirm_button.place(x=210,y=230)
         
     # for total label

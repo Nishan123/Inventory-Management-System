@@ -4,7 +4,6 @@ from tkinter import messagebox
 import sqlite3
 
 root = Tk()
-
 root.title("Stock Panda")
 root.config(bg="#8A908B")
 root.geometry("1100x700")
