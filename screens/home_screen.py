@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import font
 import purchase_window
+import sqlite3
 
 root = Tk()
 root.title("Stock Panda")
@@ -26,7 +27,7 @@ def onLeave(e):
     search = search_bar.get()
     if search == "":
         search_bar.insert(0, "Search")
-
+        
 
 homeImg = PhotoImage(file="assets/home.png")
 shoppingImg = PhotoImage(file="assets/shopping-cart.png")
@@ -66,7 +67,7 @@ search_bar.bind("<FocusIn>", onEnter)
 search_bar.bind("<FocusOut>", onLeave)
 search_bar.place(x=487, y=15, height=30)
 
-search_btn = Button(appBar, image=searchImg, bg="#FF5252", )
+search_btn = Button(appBar, image=searchImg, bg="#FF5252")
 search_btn.image = searchImg
 search_btn.place(x=740, y=15)
 
@@ -108,13 +109,15 @@ saleValue = Label(valueContainer,text="Sales:XXX")
 saleValue.grid(row=0,column=2)
 
 # frame to store list of avaialble stocks
-stocks_frame=Frame(root,height=520,width=765,bg="#D9D9D9")
+stocks_frame=Frame(root,height=520,width=790,bg="#D9D9D9")
 stocks_frame.pack_propagate(False)
-stocks_frame.pack(padx=(6,0),pady=(70,0))
+stocks_frame.pack(padx=(4,0),pady=(70,0))
 
 # frame to store labels
 stocks_frame_labels=Frame(stocks_frame,height=520,width=760,bg="#D9D9D9")
 stocks_frame_labels.place(x=50,y=10)
+
+
 
 # labels inside stocks container
 id_label = Label(stocks_frame_labels,text="ID",font=("Arial",13,"bold",),bg="#D9D9D9").grid(row=0,column=0,padx=(0,52))
@@ -125,33 +128,45 @@ total_label=Label(stocks_frame_labels,text="Total",font=("Arial",13,"bold"),bg="
 
 
 # for scroll frame
-scroll_frame=Frame(stocks_frame,bg="pink",height=480,width=765)
+scroll_frame=Frame(stocks_frame,bg="pink",height=480,width=775,)
 scroll_frame.pack_propagate(False)
 scroll_frame.pack(side=BOTTOM)
 
-# stock items list tile frame
-itemFrame= Frame(scroll_frame,bg="red",height=34,width=750)
-itemFrame.pack_propagate(False)
-itemFrame.pack(pady=10)
+# to display scroll bar
+yscroll = Scrollbar(scroll_frame)
+yscroll.pack(side=RIGHT, fill=Y)
 
-delete_btn = Button(itemFrame, image=deleteImg )
-delete_btn.image = deleteImg
-delete_btn.place(x=1,y=2,)
+conn = sqlite3.connect("inv.db")
+c=conn.cursor()
+c.execute("SELECT * FROM inventory")
+stocks = c.fetchall()
+all_stocks = ""
+for stock in stocks:
+    all_stocks+=str(stock[0])+str(stock[1])+str(stock[2])+str(stock[3])+str(stock[4])
+    itemFrame= Frame(scroll_frame,bg="red",height=34,width=750)
+    itemFrame.pack_propagate(False)
+    itemFrame.pack(pady=(10,0))
 
-item_id_field = Entry(itemFrame,width=6,font=10)
-item_id_field.place(x=39,y=2,height=30)
+    delete_btn = Button(itemFrame, image=deleteImg )
+    delete_btn.image = deleteImg
+    delete_btn.place(x=1,y=2,)
 
-item_name_field = Entry(itemFrame,width=25,font=10)
-item_name_field.place(x=116,y=2,height=30)
+    item_id = Label(itemFrame,text=stock[0],width=6,font=10,anchor="w")
+    item_id.place(x=39,y=2,height=30)
 
-item_qty_field = Entry(itemFrame,width=9,font=10)
-item_qty_field.place(x=401,y=2,height=30)
+    item_name = Label(itemFrame,text=stock[1],width=25,font=10,anchor="w")
+    item_name.place(x=116,y=2,height=30)
 
-item_cp_field = Entry(itemFrame,width=9,font=10)
-item_cp_field.place(x=510,y=2,height=30)
+    item_qty_field = Label(itemFrame,text=stock[2],width=9,font=10,anchor="w")
+    item_qty_field.place(x=401,y=2,height=30)
 
-item_total_field = Entry(itemFrame,width=11,font=10)
-item_total_field.place(x=620,y=2,height=30)
+    item_cp_field = Label(itemFrame,text=stock[3],width=9,font=10,anchor="w")
+    item_cp_field.place(x=510,y=2,height=30)
 
+    item_total_field = Label(itemFrame,text=stock[4],width=11,font=10,anchor="w")
+    item_total_field.place(x=620,y=2,height=30)
+    
+    
+    
 
 root.mainloop()

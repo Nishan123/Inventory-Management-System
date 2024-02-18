@@ -15,7 +15,7 @@ conn = sqlite3.connect("inv.db")
 c = conn.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS userProfile(
           
-          ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          userID INTEGER PRIMARY KEY AUTOINCREMENT,
           str_name      TEXT,
           user_phone    INT, 
           passwd        TEXT,
@@ -89,8 +89,6 @@ def NameOnEnter(e):
     name.delete(0, "end")
 
 
-
-
 def PhoneOnEnter(e):
     phone.delete(0, "end")
 
@@ -98,7 +96,6 @@ def PhoneOnLeave(e):
     phoneData = phone.get()
     if phoneData == "":
         phone.insert(0, "  Phone Number")
-
 
 
 def PassOnEnter(e):
