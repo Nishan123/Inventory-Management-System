@@ -17,7 +17,7 @@ c = conn.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS userProfile(
           
           ID INTEGER PRIMARY KEY AUTOINCREMENT,
-          
+          str_name      TEXT,
           user_phone    INT, 
           passwd        TEXT,
           conf_passwd   TEXT
@@ -34,9 +34,10 @@ def signup():
         messagebox.showerror(title="Signup status",message="Confirm password must be same")
        
     else:
-         c.execute("INSERT INTO userProfile(user_phone, passwd, conf_passwd)VALUES(?, ?, ?)",(phone.get(),password.get(),confirmPassword.get()))
+         c.execute("INSERT INTO userProfile(user_phone, passwd, conf_passwd, str_name)VALUES(?, ?, ?, ?)",(phone.get(),password.get(),confirmPassword.get(),name.get()))
          conn.commit()
          conn.close()
+         messagebox.showinfo(title="Signup Status",message="Account created successfull")
          root.destroy()
          import home_screen
         
@@ -77,11 +78,22 @@ def confirm_password_visibility():
 def alreadyHaveAccount():
     root.destroy()
     import login_screen
+    
+    
+    
+def NameOnLeave(e):
+    nameData = name.get()
+    if nameData == "":
+        name.insert(0, "  Store name")
+
+def NameOnEnter(e):
+    name.delete(0, "end")
+
+
 
 
 def PhoneOnEnter(e):
     phone.delete(0, "end")
-
 
 def PhoneOnLeave(e):
     phoneData = phone.get()
@@ -89,9 +101,9 @@ def PhoneOnLeave(e):
         phone.insert(0, "  Phone Number")
 
 
+
 def PassOnEnter(e):
     password.delete(0, "end")
-
 
 def PassOnLeave(e):
     passwordData = password.get()
@@ -101,7 +113,6 @@ def PassOnLeave(e):
 
 def ConfPassOnEnter(e):
     confirmPassword.delete(0, "end")
-
 
 def ConfPassOnLeave(e):
     confPasswordData = confirmPassword.get()
@@ -139,23 +150,29 @@ h1 = Label(container, text="Create an Account",
 h1.place(x=120, y=230)
 
 # for text fields
+name = Entry(container, width=27, font=(9))
+name.insert(0, "  Store name")
+name.bind("<FocusIn>", NameOnEnter)
+name.bind("<FocusOut>", NameOnLeave)
+name.place(x=90, y=300, height=38)
+
 phone = Entry(container, width=27, font=(9))
 phone.insert(0, "  Phone Number")
 phone.bind("<FocusIn>", PhoneOnEnter)
 phone.bind("<FocusOut>", PhoneOnLeave)
-phone.place(x=90, y=300, height=38)
+phone.place(x=90, y=350, height=38)
 
 password = Entry(container, width=27, font=(9))
 password.insert(0, "  Password")
 password.bind("<FocusIn>", PassOnEnter)
 password.bind("<FocusOut>", PassOnLeave)
-password.place(x=90, y=350, height=38)
+password.place(x=90, y=400, height=38)
 
 confirmPassword = Entry(container, width=27, font=(9))
 confirmPassword.insert(0, "  Confirm Password")
 confirmPassword.bind("<FocusIn>", ConfPassOnEnter)
 confirmPassword.bind("<FocusOut>", ConfPassOnLeave)
-confirmPassword.place(x=90, y=400, height=38)
+confirmPassword.place(x=90, y=450, height=38)
 
 # icon label_call
 icon_label_call = Label(root, image=callImg, cursor='hand2',bg="white")
