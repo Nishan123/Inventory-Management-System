@@ -105,7 +105,7 @@ h1.place(x=140, y=230)
 
 # for text fields
 phone = Entry(container, width=27, font=(10))
-phone.insert(0, "  Phone Number")
+phone.insert(0,"  Phone Number")
 phone.bind("<FocusIn>", PhoneOnEnter)
 phone.bind("<FocusOut>", PhoneOnLeave)
 phone.place(x=90, y=320, height=38)
