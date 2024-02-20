@@ -3,7 +3,6 @@ import sqlite3
 
 
 
-
 def create_purchase_window(root,update_home_screen_callback):
     purchase=Toplevel(root)
     purchase.config(bg="#545454")
@@ -73,11 +72,6 @@ def create_purchase_window(root,update_home_screen_callback):
 
     quantity_var.trace_add("write", calculate_total)
     costprice_var.trace_add("write", calculate_total)
-
-    c.execute("SELECT * FROM inventory")
-    rows = c.fetchall()
-    for row in rows:
-        print(row)  
 
     purchase.mainloop() 
     

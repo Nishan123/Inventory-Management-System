@@ -91,7 +91,7 @@ def NameOnEnter(e):
 
 def PhoneOnEnter(e):
     phone.delete(0, "end")
-
+    
 def PhoneOnLeave(e):
     phoneData = phone.get()
     if phoneData == "":

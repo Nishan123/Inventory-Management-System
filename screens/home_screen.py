@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import font
 import purchase_window
 import sqlite3
+from functools import partial
+from tkinter import Scrollbar, Canvas
 
 root = Tk()
 root.title("Stock Panda")
@@ -15,15 +17,10 @@ root.minsize(height=700, width=1100)
 def update_home_screen():
     conn = sqlite3.connect("inv.db")
     c = conn.cursor()
-    
-   
     c.execute("SELECT * FROM inventory")
     stocks = c.fetchall()
-    
-  
     for widget in scroll_frame.winfo_children():
         widget.destroy()  
-        
     for stock in stocks:
         itemFrame = Frame(scroll_frame, bg="red", height=34, width=750)
         itemFrame.pack_propagate(False)
@@ -51,7 +48,12 @@ def update_home_screen():
     conn.close()
 
 
+def delete_record_and_frame(itemFrame, stock_id):
+    c.execute("DELETE FROM inventory WHERE productID=?", (stock_id,))
+    conn.commit()
+    itemFrame.destroy()
 
+    
 def whenPurchaseItem():
     purchase_window.create_purchase_window(root,update_home_screen)
     
@@ -133,11 +135,11 @@ account_btn.image = userImg
 account_btn.pack(pady=(10, 0))
 
 
-Label(root,text="Availabe Stocks",font=("Arial",18,"bold"),bg="#8A908B").place(x=320,y=95)
+Label(root,text="Availabe Stocks",font=("Arial",18,"bold"),bg="#8A908B",fg="white").place(x=600,y=60)
 
 
 valueContainer= Frame(root)
-valueContainer.place(x=874,y=100)
+valueContainer.place(x=872,y=65)
 
 stocksValue = Label(valueContainer,text="Stocks:XXX")
 stocksValue.grid(row=0,column=0)
@@ -149,31 +151,37 @@ saleValue = Label(valueContainer,text="Sales:XXX")
 saleValue.grid(row=0,column=2)
 
 
-stocks_frame=Frame(root,height=520,width=790,bg="#D9D9D9")
+stocks_frame=Frame(root,height=520,width=780,bg="#D9D9D9")
 stocks_frame.pack_propagate(False)
 stocks_frame.pack(padx=(4,0),pady=(70,0))
 
 
-stocks_frame_labels=Frame(stocks_frame,height=520,width=760,bg="#D9D9D9")
-stocks_frame_labels.place(x=50,y=10)
+stocks_frame_labels=Frame(root,width=900,bg="#7F7F7F")
+stocks_frame_labels.place(x=312,y=100)
+
+id_label = Label(stocks_frame_labels,text="        ID 👇",font=("Arial",13,),bg="#7F7F7F",fg="white").grid(row=0,column=0,padx=(0,41))
+productName_label = Label(stocks_frame_labels,text="Product Name 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=1,padx=(0,152))
+qty_label=Label(stocks_frame_labels,text="Qty 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=2,padx=(0,57))
+cp_label=Label(stocks_frame_labels,text="CP 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=3,padx=(0,57))
+total_label=Label(stocks_frame_labels,text="Total 👇              ",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=4,padx=(0,0))
 
 
 
+main_frame = Frame(stocks_frame)
+main_frame.pack(fill=BOTH, expand=1)
 
-id_label = Label(stocks_frame_labels,text="ID",font=("Arial",13,"bold",),bg="#D9D9D9").grid(row=0,column=0,padx=(0,52))
-productName_label = Label(stocks_frame_labels,text="Product Name",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=1,padx=(0,168))
-qty_label=Label(stocks_frame_labels,text="Qty",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=2,padx=(0,70))
-cp_label=Label(stocks_frame_labels,text="CP",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=3,padx=(0,76))
-total_label=Label(stocks_frame_labels,text="Total",font=("Arial",13,"bold"),bg="#D9D9D9").grid(row=0,column=4,padx=(0,0))
+canvas = Canvas(main_frame)
+canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
+scrollbar = Scrollbar(main_frame, orient=VERTICAL, command=canvas.yview)
+scrollbar.pack(side=RIGHT, fill=Y)
 
+canvas.configure(yscrollcommand=scrollbar.set)
+canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
-scroll_frame=Frame(stocks_frame,bg="pink",height=480,width=775,)
-scroll_frame.pack_propagate(False)
-scroll_frame.pack(side=BOTTOM)
+scroll_frame = Frame(canvas,height=480, width=775)
+canvas.create_window((0,0), window=scroll_frame, anchor="nw")
 
-yscroll = Scrollbar(scroll_frame)
-yscroll.pack(side=RIGHT, fill=Y)
 
 conn = sqlite3.connect("inv.db")
 c=conn.cursor()
@@ -184,9 +192,9 @@ for stock in stocks:
     all_stocks+=str(stock[0])+str(stock[1])+str(stock[2])+str(stock[3])+str(stock[4])
     itemFrame= Frame(scroll_frame,bg="red",height=34,width=750)
     itemFrame.pack_propagate(False)
-    itemFrame.pack(pady=(10,0))
+    itemFrame.pack(pady=(7,0))
 
-    delete_btn = Button(itemFrame, image=deleteImg )
+    delete_btn = Button(itemFrame, image=deleteImg, command=partial(delete_record_and_frame, itemFrame, stock[0]))
     delete_btn.image = deleteImg
     delete_btn.place(x=1,y=2,)
 
@@ -206,6 +214,4 @@ for stock in stocks:
     item_total_field.place(x=620,y=2,height=30)
     
     
-    
-
 root.mainloop()

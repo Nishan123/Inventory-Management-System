@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import font, filedialog
 import os
 import sqlite3
+import change_name_window
+
 
 root = Tk()
 root.title("Stock Panda")
@@ -10,7 +12,12 @@ root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
 
-
+def update_profile_screen_callback():
+    conn = sqlite3.connect("inv.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM inventory")
+    conn.close()
+    
 def whenPurchaseItem():
     import purchase_window
 
@@ -60,8 +67,12 @@ def save_image_to_database(file_path):
     # Commit changes and close connection
     conn.commit()
     conn.close()
-
-
+    
+    
+def whenPressedChangeName():
+    change_name_window.create_change_name_window(root, update_profile_screen_callback)
+    
+    
 # creating a icon path
 icon_path = os.path.abspath("assets/stockpanda1.ico")
 
@@ -187,7 +198,7 @@ logout_btn.pack(pady=(175, 0))
 
 # change name button
 change_name_btn = Button(profile_frame, text="Change Name", image=changeNameImg, compound="left", height=35, width=260, bg="#D9D9D9",
-                  fg="blue", border=0, font=customButtonFont)
+                  fg="blue", border=0, font=customButtonFont,command=whenPressedChangeName)
 change_name_btn.image = changeNameImg
 change_name_btn.pack(pady=(200,0))
 
