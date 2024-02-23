@@ -3,6 +3,7 @@ from tkinter import font, filedialog
 import os
 import sqlite3
 import change_name_window
+import change_phone_window
 
 
 root = Tk()
@@ -11,12 +12,6 @@ root.config(bg="#8A908B")
 root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
-
-def update_profile_screen_callback():
-    conn = sqlite3.connect("inv.db")
-    c = conn.cursor()
-    c.execute("SELECT * FROM inventory")
-    conn.close()
     
 def whenPurchaseItem():
     import purchase_window
@@ -54,23 +49,30 @@ def on_profile_pic_click(event):
 
         # Save file path to the database
         save_image_to_database(file_path)
+        
+def update_profile_screen_callback():
+    conn = sqlite3.connect("inv.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM inventory")
+    conn.close()
 
 
 # Function to save image file path to database
 def save_image_to_database(file_path):
-    # Connect to the database
     conn = sqlite3.connect('your_database.db')
     cursor = conn.cursor()
     cursor.execute(
-        "UPDATE user SET profile_image = ? WHERE user_id = ?", (file_path,))  # create user_id, and user table in database to store these infos.
+        "UPDATE user SET profile_image = ? WHERE user_id = ?", (file_path,)) 
 
-    # Commit changes and close connection
     conn.commit()
     conn.close()
     
     
 def whenPressedChangeName():
     change_name_window.create_change_name_window(root, update_profile_screen_callback)
+    
+def whenPressedChangePhone():
+    change_phone_window.create_change_phone_window(root, update_profile_screen_callback)
     
     
 # creating a icon path
@@ -175,8 +177,22 @@ profile_pic_frame.pack(pady=(10, 0))
 profile_pic_label.bind("<Button-1>", on_profile_pic_click)
 
 
+conn = sqlite3.connect('inv.db')
+
+c = conn.cursor()
+# Fetch the last row's str_name attribute value
+c.execute("SELECT str_name FROM userProfile ORDER BY id DESC LIMIT 1")
+store_name_from_db = c.fetchone()[0]
+
+
+# Fetch the phone attribute value from the userProfile table
+c.execute("SELECT user_phone FROM userProfile ORDER BY id DESC LIMIT 1")
+phone_from_db = c.fetchone()[0]
+conn.close()
+
+
 # to display store name
-store_name = Label(profile_card, text="Store name", font=(
+store_name = Label(profile_card, text=store_name_from_db, font=(
     "Arial", 20, "bold"), bg='#d599bc', background='#d599bc')
 store_name.pack(pady=(20, 0))
 
@@ -184,7 +200,7 @@ store_name.pack(pady=(20, 0))
 phone_frame = Frame(profile_card)
 phone_frame.pack(pady=(10, 0))
 Label(phone_frame, text="Phone:", background='#d599bc').grid(row=0, column=0)
-store_phone = Label(phone_frame, text="9812345678", background='#d599bc')
+store_phone = Label(phone_frame, text=phone_from_db, background='#d599bc')
 store_phone.grid(row=0, column=1)
 
 
@@ -209,8 +225,8 @@ change_name_btn.image = changePasswdImg
 change_name_btn.pack()
 
 # change phone button
-change_name_btn = Button(profile_frame, text="Change", image=changePhoneImg, compound="left", height=35, width=260, bg="#D9D9D9",
-                  fg="blue", border=0, font=customButtonFont)
+change_name_btn = Button(profile_frame, text="Change Phone", image=changePhoneImg, compound="left", height=35, width=260, bg="#D9D9D9",
+                  fg="blue", border=0, font=customButtonFont, command= whenPressedChangePhone)
 change_name_btn.image = changePhoneImg
 change_name_btn.pack()
 
