@@ -7,11 +7,8 @@ totalSalesAmt = 0
 
 
 def update_home_screen(quantity_sold, cost_price):
-    # Calculate updated total sale amount on the home screen
     global totalSalesAmt
     totalSalesAmt -= quantity_sold * cost_price
-    # Update total sale amount on the home screen
-    # You need to implement this part based on your home screen update mechanism
 
 
 def onConfirmSale(total_purchase):
@@ -27,6 +24,7 @@ def onConfirmSale(total_purchase):
         product_name = product_data[1]
         cost_price = int(product_data[2])
         available_quantity = int(product_data[3])
+        old_total = int(product_data[4])
 
         if quantity_sold > available_quantity:
             messagebox.showerror("Error", "Insufficient quantity available!")
@@ -34,11 +32,12 @@ def onConfirmSale(total_purchase):
             return
 
         total_sale_price = cost_price * quantity_sold
+        new_db_toal = old_total-total_sale_price
 
         # Update quantity and total in the database
         updated_quantity = available_quantity - quantity_sold
         c.execute("UPDATE inventory SET qty=?, total=? WHERE productID=?",
-                  (updated_quantity, total_sale_price, product_id))
+                  (updated_quantity, new_db_toal, product_id))
         conn.commit()
 
         # Display total sale price on the sale window
@@ -50,10 +49,10 @@ def onConfirmSale(total_purchase):
 
         # Update total sale amount on the home screen
         update_home_screen(quantity_sold, cost_price)
+        sale.destroy()
 
     else:
         messagebox.showerror("Error", "Product ID not found!")
-
     conn.close()
 
 
