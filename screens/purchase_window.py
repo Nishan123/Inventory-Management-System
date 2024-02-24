@@ -1,6 +1,6 @@
 from tkinter import *
 import sqlite3
-
+import time
 
 
 def create_purchase_window(root,update_home_screen_callback):
@@ -22,14 +22,15 @@ def create_purchase_window(root,update_home_screen_callback):
           total             TEXT
           )""")
     conn.commit()
-  
     
     def onConfirmPurchase():
         conn = sqlite3.connect("inv.db")
         c=conn.execute("INSERT INTO inventory(product_name, cp, qty, total) VALUES(?,?,?,?)",(product_name_field.get(),costprice_field.get(),quantity_field.get(),totalPurchaseAmt))
         conn.commit()
-        update_home_screen_callback()
         purchase.destroy()
+        root.update()
+        update_home_screen_callback()
+
         
         
   

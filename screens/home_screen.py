@@ -15,12 +15,18 @@ root.minsize(height=700, width=1100)
 
 
 def update_home_screen():
+    
     conn = sqlite3.connect("inv.db")
     c = conn.cursor()
     c.execute("SELECT * FROM inventory")
     stocks = c.fetchall()
     for widget in scroll_frame.winfo_children():
-        widget.destroy()  
+        widget.destroy()
+    conn = sqlite3.connect("inv.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM inventory")
+    stocks = c.fetchall()
+      
     for stock in stocks:
         itemFrame = Frame(scroll_frame, bg="red", height=34, width=750)
         itemFrame.pack_propagate(False)
@@ -45,17 +51,21 @@ def update_home_screen():
         item_total_field = Label(itemFrame, text=stock[4], width=11, font=10, anchor="w")
         item_total_field.place(x=620, y=2, height=30)
     
+    root.update()
+    scroll_frame.update_idletasks()
+    scrollbar.update_idletasks()
+    canvas.configure(scrollregion=canvas.bbox("all"))
     conn.close()
 
-
-def delete_record_and_frame(itemFrame, stock_id):
-    c.execute("DELETE FROM inventory WHERE productID=?", (stock_id,))
-    conn.commit()
-    itemFrame.destroy()
 
     
 def whenPurchaseItem():
     purchase_window.create_purchase_window(root,update_home_screen)
+    
+def delete_record_and_frame(itemFrame, stock_id):
+    c.execute("DELETE FROM inventory WHERE productID=?", (stock_id,))
+    conn.commit()
+    itemFrame.destroy()
     
 def whenAccountPressed():
     root.destroy()
@@ -161,8 +171,8 @@ stocks_frame_labels.place(x=312,y=100)
 
 id_label = Label(stocks_frame_labels,text="        ID 👇",font=("Arial",13,),bg="#7F7F7F",fg="white").grid(row=0,column=0,padx=(0,41))
 productName_label = Label(stocks_frame_labels,text="Product Name 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=1,padx=(0,152))
-qty_label=Label(stocks_frame_labels,text="Qty 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=2,padx=(0,57))
-cp_label=Label(stocks_frame_labels,text="CP 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=3,padx=(0,57))
+qty_label=Label(stocks_frame_labels,text="CP 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=2,padx=(0,57))
+cp_label=Label(stocks_frame_labels,text="Qty 👇",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=3,padx=(0,57))
 total_label=Label(stocks_frame_labels,text="Total 👇              ",font=("Arial",13),bg="#7F7F7F",fg="white").grid(row=0,column=4,padx=(0,0))
 
 
@@ -212,6 +222,5 @@ for stock in stocks:
 
     item_total_field = Label(itemFrame,text=stock[4],width=11,font=10,anchor="w")
     item_total_field.place(x=620,y=2,height=30)
-    
-    
+
 root.mainloop()
