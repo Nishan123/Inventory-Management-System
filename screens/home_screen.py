@@ -58,7 +58,40 @@ def update_home_screen():
     conn.close()
 
 
-    
+def search_items(term):
+    # Clear the current items in the scroll_frame
+    for widget in scroll_frame.winfo_children():
+        widget.destroy()
+
+    # Fetch items from the database that match the search term
+    c.execute("SELECT * FROM inventory WHERE product_name LIKE ?", ('%' + term + '%',))
+    stocks = c.fetchall()
+
+    # Same as before, but only for items that match the search term
+    for stock in stocks:
+        itemFrame= Frame(scroll_frame,bg="red",height=34,width=750)
+        itemFrame.pack_propagate(False)
+        itemFrame.pack(pady=(7,0))
+
+        delete_btn = Button(itemFrame, image=deleteImg, command=partial(delete_record_and_frame, itemFrame, stock[0]))
+        delete_btn.image = deleteImg
+        delete_btn.place(x=1,y=2,)
+
+        item_id = Label(itemFrame,text=stock[0],width=6,font=10,anchor="w")
+        item_id.place(x=39,y=2,height=30)
+
+        item_name = Label(itemFrame,text=stock[1],width=25,font=10,anchor="w")
+        item_name.place(x=116,y=2,height=30)
+
+        item_qty_field = Label(itemFrame,text=stock[2],width=9,font=10,anchor="w")
+        item_qty_field.place(x=401,y=2,height=30)
+
+        item_cp_field = Label(itemFrame,text=stock[3],width=9,font=10,anchor="w")
+        item_cp_field.place(x=510,y=2,height=30)
+
+        item_total_field = Label(itemFrame,text=stock[4],width=11,font=10,anchor="w")
+        item_total_field.place(x=620,y=2,height=30)
+       
 def whenPurchaseItem():
     purchase_window.create_purchase_window(root,update_home_screen)
     
@@ -73,6 +106,7 @@ def whenAccountPressed():
 
 def whenSaleItem():
     import sales_window
+    
 def onEnter(e):
     search_bar.delete(0, "end")
 
@@ -80,6 +114,7 @@ def onLeave(e):
     search = search_bar.get()
     if search == "":
         search_bar.insert(0, "Search")
+        
         
 
 homeImg = PhotoImage(file="assets/home.png")
@@ -113,14 +148,14 @@ textlogo = PhotoImage(file="assets/textlogo.png")
 logoDispaly = Label(appBar, image=textlogo, bg="#7F7F7F")
 logoDispaly.place(x=30, y=10)
 
- 
-search_bar = Entry(appBar, width=22, font=7)
+search_term = StringVar()
+search_bar = Entry(appBar, width=22, font=7, textvariable=search_term)
 search_bar.insert(0, "Search")
 search_bar.bind("<FocusIn>", onEnter)
 search_bar.bind("<FocusOut>", onLeave)
 search_bar.place(x=487, y=15, height=30)
 
-search_btn = Button(appBar, image=searchImg, bg="#FF5252")
+search_btn = Button(appBar, image=searchImg, bg="#FF5252",command=lambda: search_items(search_term.get()))
 search_btn.image = searchImg
 search_btn.place(x=740, y=15)
 
