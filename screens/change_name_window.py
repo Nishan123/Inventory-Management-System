@@ -2,7 +2,7 @@ import sqlite3
 from tkinter import *
 
 
-def update_str_name(new_name):
+def update_str_name(new_name, store_name):
     # Connect to the SQLite database
     conn = sqlite3.connect('inv.db')
     c = conn.cursor()
@@ -18,9 +18,10 @@ def update_str_name(new_name):
     conn.commit()
     conn.close()
 
+    # Update the store_name label
+    store_name.config(text=new_name)
 
-
-def create_change_name_window(root,update_profile_screen_callback_name):
+def create_change_name_window(root, update_profile_screen_callback_name, store_name):
     change_name=Toplevel(root)
     change_name.config(bg="#545454")
     change_name.title("Purchase Item")
@@ -33,7 +34,7 @@ def create_change_name_window(root,update_profile_screen_callback_name):
     new_name_field=Entry(change_name,width=60)
     new_name_field.place(x=125,y=120,height=30)
         
-    confirm_button=Button(change_name, text="Save Changes", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"), command=lambda: update_str_name(new_name_field.get()))
+    confirm_button=Button(change_name, text="Save Changes", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"), command=lambda: update_str_name(new_name_field.get(), store_name))
     confirm_button.place(x=210,y=230)
         
     change_name.mainloop()

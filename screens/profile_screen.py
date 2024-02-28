@@ -4,8 +4,7 @@ import os
 import sqlite3
 import change_name_window
 import change_phone_window
-import sys
-sys.path.insert(0,'Inventory-Management-System\main.py')
+import change_password_window
 
 
 root = Tk()
@@ -71,10 +70,14 @@ def save_image_to_database(file_path):
     
     
 def whenPressedChangeName():
-    change_name_window.create_change_name_window(root, update_profile_screen_callback)
+    change_name_window.create_change_name_window(root, update_profile_screen_callback, store_name)
     
 def whenPressedChangePhone():
-    change_phone_window.create_change_phone_window(root, update_profile_screen_callback)
+    change_phone_window.create_change_phone_window(root, update_profile_screen_callback, store_phone)
+    
+def whenPressedChangePasswd():
+    change_password_window.create_change_passwd_window(root,update_profile_screen_callback)
+    
     
 def whenLogOut():
     root.destroy()
@@ -223,15 +226,14 @@ change_name_btn.image = changeNameImg
 change_name_btn.pack(pady=(200,0))
 
 # change password button
-change_name_btn = Button(profile_frame, text="Change Password", image=changePasswdImg, compound="left", height=35, width=260, bg="#D9D9D9",
-                  fg="blue", border=0, font=customButtonFont)
-change_name_btn.image = changePasswdImg
-change_name_btn.pack()
+change_passwd_btn = Button(profile_frame, text="Change Password", image=changePasswdImg, compound="left", height=35, width=260, bg="#D9D9D9",
+                  fg="blue", border=0, font=customButtonFont, command=whenPressedChangePasswd)
+change_passwd_btn.pack()
 
 # change phone button
-change_name_btn = Button(profile_frame, text="Change Phone", image=changePhoneImg, compound="left", height=35, width=260, bg="#D9D9D9",
+change_phone_btn = Button(profile_frame, text="Change Phone", image=changePhoneImg, compound="left", height=35, width=260, bg="#D9D9D9",
                   fg="blue", border=0, font=customButtonFont, command= whenPressedChangePhone)
-change_name_btn.image = changePhoneImg
-change_name_btn.pack()
+change_phone_btn.image = changePhoneImg
+change_phone_btn.pack()
 
 root.mainloop()
