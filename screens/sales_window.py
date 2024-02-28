@@ -1,11 +1,9 @@
 from tkinter import *
 import sqlite3
 from tkinter import messagebox
+from home_screen import refresh_inventory
 
-# Initialize total sales amount to 0
 totalSalesAmt = 0
-
-
 def update_home_screen(quantity_sold, cost_price):
     global totalSalesAmt
     totalSalesAmt -= quantity_sold * cost_price
@@ -50,6 +48,7 @@ def onConfirmSale(total_purchase):
         # Update total sale amount on the home screen
         update_home_screen(quantity_sold, cost_price)
         sale.destroy()
+        refresh_inventory()
 
     else:
         messagebox.showerror("Error", "Product ID not found!")

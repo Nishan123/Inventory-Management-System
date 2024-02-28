@@ -6,13 +6,52 @@ import sqlite3
 from functools import partial
 from tkinter import Scrollbar, Canvas
 
-
 root = Tk()
 root.title("Stock Panda")
 root.config(bg="#8A908B")
 root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
+
+
+def refresh_inventory():
+    # Clear the current inventory display
+    for widget in scroll_frame.winfo_children():
+        widget.destroy()
+
+    # Fetch the updated inventory from the database
+    conn = sqlite3.connect("inv.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM inventory")
+    stocks = c.fetchall()
+    conn.close()
+
+    # Update the inventory display
+    for stock in stocks:
+        itemFrame = Frame(scroll_frame, bg="red", height=34, width=750)
+        itemFrame.pack_propagate(False)
+        itemFrame.pack(pady=(7,0))
+        
+        delete_btn = Button(itemFrame, image=deleteImg)
+        delete_btn.image = deleteImg
+        delete_btn.place(x=1, y=2)
+
+        item_id = Label(itemFrame, text=stock[0], width=6, font=10, anchor="w")
+        item_id.place(x=39, y=2, height=30)
+
+        item_name = Label(itemFrame, text=stock[1], width=25, font=10, anchor="w")
+        item_name.place(x=116, y=2, height=30)
+
+        item_qty_field = Label(itemFrame, text=stock[2], width=9, font=10, anchor="w")
+        item_qty_field.place(x=401, y=2, height=30)
+
+        item_cp_field = Label(itemFrame, text=stock[3], width=9, font=10, anchor="w")
+        item_cp_field.place(x=510, y=2, height=30)
+
+        item_total_field = Label(itemFrame, text=stock[4], width=11, font=10, anchor="w")
+        item_total_field.place(x=620, y=2, height=30)
+
+        
 
 
 def update_home_screen():
@@ -115,7 +154,10 @@ def onLeave(e):
     if search == "":
         search_bar.insert(0, "Search")
         
-        
+     
+
+
+           
 
 homeImg = PhotoImage(file="assets/home.png")
 shoppingImg = PhotoImage(file="assets/shopping-cart.png")

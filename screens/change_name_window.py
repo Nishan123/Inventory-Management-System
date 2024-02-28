@@ -20,7 +20,7 @@ def update_str_name(new_name):
 
 
 
-def create_change_name_window(root,update_profile_screen_callback):
+def create_change_name_window(root,update_profile_screen_callback_name):
     change_name=Toplevel(root)
     change_name.config(bg="#545454")
     change_name.title("Purchase Item")

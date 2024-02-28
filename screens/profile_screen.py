@@ -4,8 +4,8 @@ import os
 import sqlite3
 import change_name_window
 import change_phone_window
-import change_password_window
-
+import sys
+sys.path.insert(0,'Inventory-Management-System\main.py')
 
 
 root = Tk()
@@ -14,18 +14,6 @@ root.config(bg="#8A908B")
 root.geometry("1100x700")
 root.maxsize(height=700, width=1100)
 root.minsize(height=700, width=1100)
-
-def update_gui():
-    # Fetch the latest data from the database
-    conn = sqlite3.connect('inv.db')
-    c = conn.cursor()
-    c.execute("SELECT user_phone FROM userProfile ORDER BY id DESC LIMIT 1")
-    updated_phone = c.fetchone()[0]
-    conn.close()
-
-    # Update the store_phone label
-    store_phone.config(text=updated_phone)
-    
     
 def whenPurchaseItem():
     import purchase_window
@@ -87,9 +75,9 @@ def whenPressedChangeName():
     
 def whenPressedChangePhone():
     change_phone_window.create_change_phone_window(root, update_profile_screen_callback)
-
-def whenPressedChangePassword():
-    change_password_window.create_change_password_window(root, update_profile_screen_callback)
+    
+def whenLogOut():
+    root.destroy()
     
     
 # creating a icon path
@@ -223,7 +211,7 @@ store_phone.grid(row=0, column=1)
 
 # log out button
 logout_btn = Button(profile_card, text="Log Out", image=logoutImg, compound="left",
-                    height=35, width=230, bg="#FF5252", fg="white", border=0, font=customButtonFont)
+                    height=35, width=230, bg="#FF5252", fg="white", border=0, font=customButtonFont,command=whenLogOut)
 logout_btn.image = logoutImg
 logout_btn.pack(pady=(175, 0))
 
