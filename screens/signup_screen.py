@@ -43,10 +43,10 @@ def signup():
     
 
 
-# # creating a icon path
+# creating a icon path
 icon_path = "assets/stockpanda1.ico"
 
-# # using iconpath
+# using iconpath
 root.iconbitmap(icon_path)
 
 
@@ -123,7 +123,7 @@ customTitleFont = font.Font(size=20, weight="bold")
 # for hero text
 Label(root, text="Stock Panda", bg="#8A908B", font=(
     "Arial", 30, "bold"), fg="white").place(x=30, y=290)
-Label(root, text="Some Description about the software", bg="#8A908B",
+Label(root, text="Stock Panda:Store success simplified", bg="#8A908B",
       font=("Arial", 20), fg="white").place(x=30, y=340)
 
 # to display text logo

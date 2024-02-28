@@ -6,6 +6,7 @@ import sqlite3
 from functools import partial
 from tkinter import Scrollbar, Canvas
 
+
 root = Tk()
 root.title("Stock Panda")
 root.config(bg="#8A908B")
@@ -56,7 +57,6 @@ def update_home_screen():
     scrollbar.update_idletasks()
     canvas.configure(scrollregion=canvas.bbox("all"))
     conn.close()
-
 
 def search_items(term):
     # Clear the current items in the scroll_frame
@@ -184,18 +184,18 @@ Label(root,text="Availabe Stocks",font=("Arial",18,"bold"),bg="#8A908B",fg="whit
 
 
 valueContainer= Frame(root)
-valueContainer.place(x=872,y=65)
+valueContainer.place(x=945,y=70)
 
-stocksValue = Label(valueContainer,text="Stocks:XXX")
-stocksValue.grid(row=0,column=0)
+conn = sqlite3.connect('inv.db')
+cursor = conn.cursor()
+cursor.execute("SELECT SUM(total) FROM inventory")
+total_stocks = cursor.fetchone()[0]
+conn.close()
 
-purchaseValue = Label(valueContainer,text="Purchase:XXX")
-purchaseValue.grid(row=0,column=1)
+stocksValue = Label(valueContainer, text=f"Total Stocks: Rs {total_stocks}")
+stocksValue.grid(row=0, column=0)
 
-saleValue = Label(valueContainer,text="Sales:XXX")
-saleValue.grid(row=0,column=2)
-
-
+    
 stocks_frame=Frame(root,height=520,width=780,bg="#D9D9D9")
 stocks_frame.pack_propagate(False)
 stocks_frame.pack(padx=(4,0),pady=(70,0))

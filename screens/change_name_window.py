@@ -18,6 +18,8 @@ def update_str_name(new_name):
     conn.commit()
     conn.close()
 
+
+
 def create_change_name_window(root,update_profile_screen_callback):
     change_name=Toplevel(root)
     change_name.config(bg="#545454")
@@ -29,7 +31,7 @@ def create_change_name_window(root,update_profile_screen_callback):
     title=Label(change_name,text="Change Name",font=("Arial",23),bg="#545454",fg="white").pack(pady=(15,0))
         
     new_name_field=Entry(change_name,width=60)
-    new_name_field.place(x=130,y=120,height=30)
+    new_name_field.place(x=125,y=120,height=30)
         
     confirm_button=Button(change_name, text="Save Changes", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"), command=lambda: update_str_name(new_name_field.get()))
     confirm_button.place(x=210,y=230)

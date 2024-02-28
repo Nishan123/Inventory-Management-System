@@ -1,8 +1,9 @@
 from tkinter import *
 import sqlite3
+from profile_screen import update_gui
 
 def update_phone(new_phone):
-    # Connect to the SQLite database
+     # Connect to the SQLite database
     conn = sqlite3.connect('inv.db')
     c = conn.cursor()
 
@@ -17,6 +18,9 @@ def update_phone(new_phone):
     conn.commit()
     conn.close()
 
+    # Update the GUI
+    update_gui()
+    
 
 def create_change_phone_window(root,update_profile_screen_callback):
     change_phone=Toplevel(root)
@@ -42,7 +46,7 @@ def create_change_phone_window(root,update_profile_screen_callback):
         
     
     new_phone_field=Entry(change_phone,width=60)
-    new_phone_field.place(x=130,y=120,height=30)
+    new_phone_field.place(x=125,y=120,height=30)
 
     confirm_button=Button(change_phone, text="Save Changes", height=2, width=22, border=0, bg="#004789", fg="white",font=("Arial",10,"bold"), command= lambda:update_phone(new_phone_field.get()))
     confirm_button.place(x=210,y=230)

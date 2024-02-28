@@ -54,6 +54,7 @@ def onConfirmSale(total_purchase):
     else:
         messagebox.showerror("Error", "Product ID not found!")
     conn.close()
+    
 
 
 # Sale window

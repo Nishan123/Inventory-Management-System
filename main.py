@@ -35,7 +35,7 @@ logoDispaly.place(x=30, y=20)
 
 # for hero text
 Label(root, text="Stock Panda", bg="#8A908B", font=("Arial", 30, "bold"), fg="white").place(x=30, y=290)
-Label(root, text="Some Description about the software", bg="#8A908B", font=("Arial", 20, "bold"), fg="white").place(
+Label(root, text="Stock Panda:Store success simplified", bg="#8A908B", font=("Arial", 20, "bold"), fg="white").place(
     x=30, y=340)
 
 # Get started text

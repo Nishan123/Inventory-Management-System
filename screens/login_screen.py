@@ -82,7 +82,7 @@ eyeSlashImg = PhotoImage(file='assets/eye_slash_icon.png')
 # for hero text
 Label(root, text="Stock Panda", bg="#8A908B", font=(
     "Arial", 30, "bold"), fg="white").place(x=30, y=290)
-Label(root, text="Some Description about the software", bg="#8A908B",
+Label(root, text="Stock Panda:Store success simplified", bg="#8A908B",
       font=("Arial", 20), fg="white").place(x=30, y=340)
 
 # to display text logo
@@ -134,17 +134,9 @@ login_button = Button(container, text="Log In", height=1, width=22,
                border=0, bg="#FF5252", fg="white", font=customButtonFont,command=login)
 login_button.place(x=96, y=540)
 
-# for forgot password button
-forgotPass = Button(container, text="Forgot password?",
-                    border=0, fg="blue", bg="#D9D9D9")
-forgotPass.place(x=290, y=415)
-
 # create new account button
 signUp = Button(container, text="Create an account", border=0,
                 fg="blue", bg="#D9D9D9", font=1, command=createAccount)
 signUp.place(x=160, y=650)
-
-
-
 
 root.mainloop()
