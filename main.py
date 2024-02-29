@@ -6,12 +6,12 @@ root = Tk()
 
 def login():
     root.destroy()
-    from screens import login_screen
+    import login_screen
 
 
 def signup():
     root.destroy()
-    from screens import signup_screen
+    import signup_screen
 
 
 root.title("Stock Panda")

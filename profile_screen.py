@@ -81,6 +81,7 @@ def whenPressedChangePasswd():
     
 def whenLogOut():
     root.destroy()
+    import main
     
     
 # creating a icon path

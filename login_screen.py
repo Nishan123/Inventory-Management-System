@@ -29,6 +29,7 @@ def createAccount():
 
 # for hint text on username and password text field
 def PhoneOnEnter(e):
+    
     phone.delete(0, "end")
 
 

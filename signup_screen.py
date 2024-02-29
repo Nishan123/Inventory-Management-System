@@ -38,7 +38,7 @@ def signup():
          conn.close()
          messagebox.showinfo(title="Signup Status",message="Account created successfull")
          root.destroy()
-         import home_screen
+         import login_screen
         
     
 
